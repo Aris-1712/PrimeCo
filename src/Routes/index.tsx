@@ -7,6 +7,7 @@ import Individual from "../Components/Individual";
 export const Routing = () => {
   return (
     <Routes>
+      <Route path="/" Component={Trips}></Route>
       <Route path="/trips" Component={Trips}></Route>
       <Route path="/trips/:id" Component={Trip}></Route>
       <Route path="/products" Component={Products}></Route>
