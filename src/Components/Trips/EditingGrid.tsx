@@ -106,7 +106,7 @@ export default function EditingGrid(props: any) {
   return (
     <div className="table-edit" style={{ width: "100%" }}>
       <DataGrid
-        sx={{ minHeight: 400 }}
+        sx={{ minHeight:100, height:"auto" }}
         slots={{ toolbar: customToolbar }}
         rows={rows}
         columns={columns}
