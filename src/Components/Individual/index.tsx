@@ -76,7 +76,7 @@ const Individual = () => {
     try {
       setLoading(true);
       let resp = await axios.get(
-        "https://primeco-backend.onrender.com/individual/all"
+        "https://primeco-backend.onrender.com/individual/all",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setRows([...resp.data]);
       setLoading(false);
@@ -105,7 +105,7 @@ const Individual = () => {
           : "https://primeco-backend.onrender.com/individual/new",
         {
           ...formData,
-        }
+        },{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setModalOpen(false);
       setFormData({ name: "", type: "" });
@@ -124,7 +124,7 @@ const Individual = () => {
         "https://primeco-backend.onrender.com/product/delete",
         {
           ...deleteData,
-        }
+        },{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setDeleteModal(false);
       setDeleteData({ name: "", type: "" });
