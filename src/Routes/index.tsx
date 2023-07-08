@@ -9,6 +9,7 @@ import ProtectedRoute from "./ProtectedRoute";
 export const Routing = () => {
   return (
     <Routes>
+      <Route path="/" Component={Trips}></Route>
         <Route path="/dashboard" Component={Trips}></Route>
         <Route path="/trips" Component={Trips}></Route>
         <Route path="/trips/:id" Component={Trip}></Route>
