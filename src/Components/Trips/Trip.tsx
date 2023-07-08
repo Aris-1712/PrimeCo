@@ -43,12 +43,12 @@ const Trip = () => {
     try {
       setLoading(true);
       let responseDrivers = await axios.get(
-        "https://primeco-backend.onrender.com/individual/drivers"
+        "https://primeco-backend.onrender.com/individual/drivers",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       let responseCustomers = await axios.get(
-        "https://primeco-backend.onrender.com/individual/customers"
+        "https://primeco-backend.onrender.com/individual/customers",{headers:{"Authorization":localStorage.getItem('token')}}
       );
-      let responseProduct = await axios.get("https://primeco-backend.onrender.com/product");
+      let responseProduct = await axios.get("https://primeco-backend.onrender.com/product",{headers:{"Authorization":localStorage.getItem('token')}});
       let driversArr: any[] = responseDrivers?.data?.map((item: any) => ({
         id: item?._id,
         label: item?.name,
@@ -75,7 +75,7 @@ const Trip = () => {
     try {
       setLoading(true);
       let resp = await axios.get(
-        `https://primeco-backend.onrender.com/inbound/trips/${params.id}`
+        `https://primeco-backend.onrender.com/inbound/trips/${params.id}`,{headers:{"Authorization":localStorage.getItem('token')}}
       );
       let copyFormData: any = {};
       copyFormData.driverId = { val: resp.data?.[0]?.driverId };
@@ -187,7 +187,7 @@ const Trip = () => {
 
       let resp = await axios.post(
         "https://primeco-backend.onrender.com/inbound/addDn",
-        payload
+        payload,{headers:{"Authorization":localStorage.getItem('token')}}
       );
       navigate("/trips");
       setLoading(false);

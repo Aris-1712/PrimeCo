@@ -9,26 +9,15 @@ import { Routing } from "./Routes";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#ef5350",
-    },
-    secondary: {
-      main: "#525252",
-    },
-  },
-});
+
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <MiniDrawer>
           <Routing />
         </MiniDrawer>
       </LocalizationProvider>
-    </ThemeProvider>
   );
 }
 

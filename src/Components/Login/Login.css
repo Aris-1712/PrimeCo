@@ -1,0 +1,26 @@
+.login-bg {
+    background-image: url('../asset/App.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
+.login {
+    min-width: 300px;
+    width: 700px;
+    margin:16px;
+    padding:22px;
+    position: relative;
+    z-index: 2;
+    background: white;
+    border-radius: 12px;
+}

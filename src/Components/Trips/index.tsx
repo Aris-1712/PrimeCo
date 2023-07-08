@@ -57,13 +57,13 @@ const Trips = () => {
     try {
       setLoading(true);
       let responseDrivers = await axios.get(
-        "https://primeco-backend.onrender.com/individual/drivers"
+        "https://primeco-backend.onrender.com/individual/drivers",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       let responseCustomers = await axios.get(
-        "https://primeco-backend.onrender.com/individual/customers"
+        "https://primeco-backend.onrender.com/individual/customers",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       let responseProduct = await axios.get(
-        "https://primeco-backend.onrender.com/product"
+        "https://primeco-backend.onrender.com/product",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       let driversArr: any[] = responseDrivers?.data?.map((item: any) => ({
         id: item?._id,
@@ -90,7 +90,7 @@ const Trips = () => {
   const newTripHanlder = async () => {
     try {
       const response = await axios.get(
-        "https://primeco-backend.onrender.com/inbound/tripId"
+        "https://primeco-backend.onrender.com/inbound/tripId",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       navigate(`/trips/${response?.data?.tripid}`);
     } catch (error) {
@@ -101,7 +101,7 @@ const Trips = () => {
   const getAllTrip = async (custArr: any, proArr: any, driveArr: any) => {
     try {
       let result = await axios.get(
-        "https://primeco-backend.onrender.com/inbound/trips"
+        "https://primeco-backend.onrender.com/inbound/trips",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setRows(
         result?.data?.map((item: any, ind: any) => ({

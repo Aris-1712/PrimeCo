@@ -75,7 +75,7 @@ const Products = () => {
     try {
       setLoading(true);
       let resp = await axios.get(
-        "https://primeco-backend.onrender.com/product"
+        "https://primeco-backend.onrender.com/product",{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setRows([...resp.data]);
       setLoading(false);
@@ -104,7 +104,7 @@ const Products = () => {
           : "https://primeco-backend.onrender.com/product/new",
         {
           ...formData,
-        }
+        },{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setModalOpen(false);
       setFormData({ name: "", type: "" });
@@ -123,7 +123,7 @@ const Products = () => {
         "https://primeco-backend.onrender.com/product/delete",
         {
           ...deleteData,
-        }
+        },{headers:{"Authorization":localStorage.getItem('token')}}
       );
       setDeleteModal(false);
       setDeleteData({ name: "", type: "" });
