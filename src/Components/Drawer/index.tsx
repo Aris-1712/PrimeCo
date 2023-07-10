@@ -18,10 +18,17 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import { LocalShipping, PermIdentity } from "@mui/icons-material";
+import {
+  Dashboard,
+  LocalShipping,
+  Logout,
+  PermIdentity,
+  Settings,
+} from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import WidgetsIcon from '@mui/icons-material/Widgets';
-
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import PrimeLogo from "../asset/primelogo.jpeg";
+import { Button, Menu, MenuItem } from "@mui/material";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -96,7 +103,9 @@ const Drawer = styled(MuiDrawer, {
 export default function MiniDrawer(props: any) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-  const navigate = useNavigate()
+  const [menuOpen, setMenuOpen] = React.useState<any>(null);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const navigate = useNavigate();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -120,31 +129,78 @@ export default function MiniDrawer(props: any) {
               ...(open && { display: "none" }),
             }}
           >
-            <MenuIcon />
+            <MenuIcon sx={{ fill: "#A1A4AD" }} />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Prime Co.
-          </Typography>
+          <Box alignItems={"center"} width={"100%"} display={"flex"}>
+            <img src={PrimeLogo} height={24}></img>
+            <Box
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent={"flex-end"}
+              flex={1}
+            >
+              <Typography sx={{ color: "#2C303B" }} variant="body1">
+                {localStorage?.getItem("email")}
+              </Typography>
+              <Button
+                id={"menu"}
+                aria-controls={menuOpen ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={menuOpen ? "true" : undefined}
+                onClick={(e) => {
+                  setMenuOpen(e?.currentTarget);
+                }}
+              >
+                <Settings></Settings>
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={menuOpen}
+                open={Boolean(menuOpen)}
+                onClose={() => {
+                  setMenuOpen(false);
+                }}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem
+                  sx={{ padding: 2 }}
+                  onClick={() => {
+                    localStorage.clear();
+                    window.location.assign("/login");
+                  }}
+                >
+                  <Logout></Logout> <Typography ml={2}>Logout</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
+              <ChevronRightIcon sx={{ fill: "#A1A4AD" }} />
             ) : (
-              <ChevronLeftIcon />
+              <ChevronLeftIcon sx={{ fill: "#A1A4AD" }} />
             )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem onClick={()=> {navigate("trips")}} disablePadding sx={{ display: "block" }}>
+        <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+              selected={selectedIndex === 0}
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
+              }}
+              onClick={() => {
+                setSelectedIndex(0);
+                navigate("/dashboard");
               }}
             >
               <ListItemIcon
@@ -154,13 +210,71 @@ export default function MiniDrawer(props: any) {
                   justifyContent: "center",
                 }}
               >
-                <LocalShipping />
+                <Dashboard sx={{ fill: "#A1A4AD" }} />
+              </ListItemIcon>
+              <ListItemText primary={"Dashboard"} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+        <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              selected={selectedIndex === 1}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+              onClick={() => {
+                setSelectedIndex(1);
+                navigate("trips");
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <LocalShipping sx={{ fill: "#A1A4AD" }} />
               </ListItemIcon>
               <ListItemText primary={"Trips"} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
-          </ListItem>
-          <ListItem onClick={()=> {navigate("products")}} disablePadding sx={{ display: "block" }}>
+            </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
             <ListItemButton
+              selected={selectedIndex === 2}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+              onClick={() => {
+                setSelectedIndex(2);
+                navigate("products");
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <WidgetsIcon sx={{ fill: "#A1A4AD" }} />
+              </ListItemIcon>
+              <ListItemText
+                primary={"Products"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton
+              selected={selectedIndex === 3}
+              onClick={() => {
+                setSelectedIndex(3);
+                navigate("entity");
+              }}
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
@@ -174,83 +288,21 @@ export default function MiniDrawer(props: any) {
                   justifyContent: "center",
                 }}
               >
-                <WidgetsIcon />
+                <PermIdentity sx={{ fill: "#A1A4AD" }} />
               </ListItemIcon>
-              <ListItemText primary={"Products"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem onClick={()=> {navigate("entity")}} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                }}
-              >
-                <PermIdentity />
-              </ListItemIcon>
-              <ListItemText primary={"Entities"} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText
+                primary={"Entities"}
+                sx={{ opacity: open ? 1 : 0 }}
+              />
             </ListItemButton>
           </ListItem>
         </List>
-        {/* <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        className="bg"
+        component="main"
+        sx={{ flexGrow: 1, p: 3, height: "100vh" }}
+      >
         <DrawerHeader />
         {props.children}
       </Box>

@@ -5,12 +5,13 @@ import Products from "../Components/Products";
 import Individual from "../Components/Individual";
 import Login from "../Components/Login";
 import ProtectedRoute from "./ProtectedRoute";
+import Dashboard from "../Components/Dashboard";
 
 export const Routing = () => {
   return (
     <Routes>
-      <Route path="/" Component={Trips}></Route>
-        <Route path="/dashboard" Component={Trips}></Route>
+      <Route path="/" Component={Dashboard}></Route>
+        <Route path="/dashboard" Component={Dashboard}></Route>
         <Route path="/trips" Component={Trips}></Route>
         <Route path="/trips/:id" Component={Trip}></Route>
         <Route path="/products" Component={Products}></Route>

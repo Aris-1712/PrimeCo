@@ -151,7 +151,7 @@ const Individual = () => {
           Add New Entity
         </Button>
       </Box>
-      <Box width={"50%"}>
+      <Box width={"100%"}>
         <DataGrid
           sx={{ minHeight: 400 }}
           disableRowSelectionOnClick={true}

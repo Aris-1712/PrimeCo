@@ -150,7 +150,7 @@ const Products = () => {
           Add New Product
         </Button>
       </Box>
-      <Box width={"50%"}>
+      <Box width={"100%"}>
         <DataGrid
           sx={{ minHeight: 400 }}
           disableRowSelectionOnClick={true}

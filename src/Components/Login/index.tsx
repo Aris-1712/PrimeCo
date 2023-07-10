@@ -13,6 +13,7 @@ const Login = () => {
     try{
     let res:any = await axios.post("https://primeco-backend.onrender.com/auth/signin",formData);
     res.headers.get("x-auth-token") && localStorage.setItem("token",res.headers.get("x-auth-token"));
+    localStorage.setItem('email',formData?.email)
     navigate("/dashboard")
     }catch(err:any){
         console.log(err)
